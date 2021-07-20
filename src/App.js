@@ -19,7 +19,11 @@ function App() {
   useEffect(function () {
     const localData = localStorage.getItem('todo');
     const dataAsArray = JSON.parse(localData);
-    updateTodoList(dataAsArray);
+    if (dataAsArray === null || dataAsArray === undefined) {
+      updateTodoList([]);
+    } else {
+      updateTodoList(dataAsArray);
+    }
   }, []);
 
   const submit = function () {
