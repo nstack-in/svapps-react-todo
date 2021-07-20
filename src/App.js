@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +16,12 @@ function App() {
   const taskDateRef = useRef();
   const [todoList, updateTodoList] = useState([]);
 
+  useEffect(function () {
+    const localData = localStorage.getItem('todo');
+    const dataAsArray = JSON.parse(localData);
+    updateTodoList(dataAsArray);
+  }, []);
+
   const submit = function () {
     const name = taskNameRef.current.value;
     const date = taskDateRef.current.value;
@@ -28,6 +34,8 @@ function App() {
     const updatedList = [...todoList, newObj];
     // Updating State
     updateTodoList(updatedList);
+    const listAsString = JSON.stringify(updatedList);
+    localStorage.setItem('todo', listAsString);
 
     // Reset
     taskNameRef.current.value = '';
@@ -48,6 +56,8 @@ function App() {
       }
     });
     updateTodoList(updatedList);
+    const listAsString = JSON.stringify(updatedList);
+    localStorage.setItem('todo', listAsString);
   }
 
   return (
