@@ -10,6 +10,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Link } from 'react-router-dom';
 
 function App() {
   const taskNameRef = useRef();
@@ -123,7 +124,11 @@ function App() {
                     onChange={() => markAsCompleted(todo)}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                   />
-                  {todo.name} - {todo.date}
+                  <Link
+                    to={`/${todo.name}`}>
+                    {todo.name}
+                  </Link>
+                  - {todo.date}
                 </Box>
               </Paper>
             );
